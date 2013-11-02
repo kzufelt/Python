@@ -1,21 +1,29 @@
 #Sum of all the primes below two million
 import time
+import math
 
-def isprime(number):
-	primeq=0
-	iter=0
-	for x in range(2,number//2+1):
-		iter=iter+1
-		if number%x==0:
-			#print(number, " is divisible by ", x)
-			return False
-		elif number%x!=0:
-			#print(number, " was divided by ", x)
-			primeq=primeq+1
-	#print(number, " is prime.")
-	if primeq==iter:
-		return True
-	return False
+def isPrime(n):
+	if n==1:
+		return False
+	elif n<4:
+		return True #2 and 3 are prime
+	elif n%2==0:
+		return False
+	elif n<9:
+		return True #we have already excluded 4,6 and 8.
+	elif n%3==0:
+		return False
+	else:
+		r=math.floor(math.sqrt(n)) 
+		f=5
+		while f<=r:
+			if n%f==0:
+				return False
+			if n%(f+2)==0:
+				return False
+			f=f+6
+	return True
+
 
 def foo(q):
 	start=time.time()
@@ -23,7 +31,7 @@ def foo(q):
 	sum=0
 	while currentnum<q:
 		currentnum=currentnum+1
-		if isprime(currentnum):
+		if isPrime(currentnum):
 			sum=sum+currentnum
 		if currentnum%100000==0:
 			timeelapsed=time.time()-start
